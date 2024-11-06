@@ -76,3 +76,6 @@ LINE 1: ...anguage, code, output, error, created_at) VALUES ('7ffd5aaa-...
 2024-11-06 04:58:41,463 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
 2024-11-06 04:59:34,319 ERROR: Execution timed out for user ID: 2 [in /mnt/d/Compiler As A Service/backend/api/execute.py:191]
 2024-11-06 04:59:39,587 ERROR: Execution timed out for user ID: 2 [in /mnt/d/Compiler As A Service/backend/api/execute.py:191]
+2024-11-06 04:59:58,105 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 05:00:07,386 ERROR: Execution timed out for user ID: 2 [in /mnt/d/Compiler As A Service/backend/api/execute.py:191]
+2024-11-06 05:00:17,573 ERROR: Execution timed out for user ID: 2 [in /mnt/d/Compiler As A Service/backend/api/execute.py:191]
