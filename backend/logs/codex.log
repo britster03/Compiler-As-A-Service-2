@@ -1,17 +1,18 @@
-2024-11-06 01:49:35,986 ERROR: Unexpected error for user ID: 2 [in /mnt/d/Compiler As A Service/backend/api/execute.py:79]
+2024-11-06 04:44:09,765 ERROR: Unexpected error for user ID: 2 [in /mnt/d/Compiler As A Service/backend/api/execute.py:94]
 Traceback (most recent call last):
   File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
     self.dialect.do_execute(
   File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 941, in do_execute
     cursor.execute(statement, parameters)
-psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "executions_pkey"
-DETAIL:  Key (id)=(2) already exists.
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "7ffd5aaa-c008-4ff9-9ef3-0299923f54e5"
+LINE 1: ...anguage, code, output, error, created_at) VALUES ('7ffd5aaa-...
+                                                             ^
 
 
 The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
-  File "/mnt/d/Compiler As A Service/backend/api/execute.py", line 61, in execute_code
+  File "/mnt/d/Compiler As A Service/backend/api/execute.py", line 67, in execute_code
     db.session.commit()
   File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/scoping.py", line 597, in commit
     return self._proxied.commit()
@@ -41,7 +42,7 @@ Traceback (most recent call last):
     util.preloaded.orm_persistence.save_obj(
   File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
     _emit_insert_statements(
-  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 1233, in _emit_insert_statements
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 1048, in _emit_insert_statements
     result = connection.execute(
   File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
     return meth(
@@ -59,10 +60,19 @@ Traceback (most recent call last):
     self.dialect.do_execute(
   File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 941, in do_execute
     cursor.execute(statement, parameters)
-sqlalchemy.exc.IntegrityError: (psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "executions_pkey"
-DETAIL:  Key (id)=(2) already exists.
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "7ffd5aaa-c008-4ff9-9ef3-0299923f54e5"
+LINE 1: ...anguage, code, output, error, created_at) VALUES ('7ffd5aaa-...
+                                                             ^
 
-[SQL: INSERT INTO executions (user_id, language, code, output, error, created_at) VALUES (%(user_id)s, %(language)s, %(code)s, %(output)s, %(error)s, %(created_at)s) RETURNING executions.id]
-[parameters: {'user_id': 2, 'language': 'python', 'code': "print('hi')", 'output': 'hi\n', 'error': '', 'created_at': datetime.datetime(2024, 11, 6, 6, 49, 35, 984629)}]
-(Background on this error at: https://sqlalche.me/e/20/gkpj)
-2024-11-06 01:54:08,104 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+[SQL: INSERT INTO executions (id, user_id, language, code, output, error, created_at) VALUES (%(id)s, %(user_id)s, %(language)s, %(code)s, %(output)s, %(error)s, %(created_at)s)]
+[parameters: {'id': '7ffd5aaa-c008-4ff9-9ef3-0299923f54e5', 'user_id': 2, 'language': 'python', 'code': '# Python program to find the factorial of a number provided by the user.\r\n\r\n# change the value for a different result\r\nnum = 7\r\n\r\n# To take ... (263 characters truncated) ... torial of 0 is 1")\r\nelse:\r\n   for i in range(1,num + 1):\r\n       factorial = factorial*i\r\n   print("The factorial of",num,"is",factorial)\r\n', 'output': 'The factorial of 7 is 5040\n', 'error': '', 'created_at': datetime.datetime(2024, 11, 6, 9, 44, 9, 761781)}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2024-11-06 04:50:59,845 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 04:51:13,330 ERROR: Failed to upload execution 26 to S3. [in /mnt/d/Compiler As A Service/backend/api/execute.py:79]
+2024-11-06 04:54:06,730 ERROR: Failed to upload execution 27 to S3. [in /mnt/d/Compiler As A Service/backend/api/execute.py:79]
+2024-11-06 04:56:14,303 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 04:57:06,419 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 04:57:21,957 ERROR: Failed to upload execution 29 to S3. [in /mnt/d/Compiler As A Service/backend/api/execute.py:178]
+2024-11-06 04:58:41,463 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 04:59:34,319 ERROR: Execution timed out for user ID: 2 [in /mnt/d/Compiler As A Service/backend/api/execute.py:191]
+2024-11-06 04:59:39,587 ERROR: Execution timed out for user ID: 2 [in /mnt/d/Compiler As A Service/backend/api/execute.py:191]

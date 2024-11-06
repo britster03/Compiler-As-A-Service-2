@@ -1,59 +1,55 @@
-2024-11-02 23:55:58,886 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:27]
-2024-11-02 23:56:49,101 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:27]
-2024-11-02 23:57:09,668 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:27]
-2024-11-03 00:00:44,443 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:27]
-2024-11-03 00:01:00,933 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:27]
-2024-11-03 00:01:21,789 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:27]
-2024-11-03 00:02:28,314 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:27]
-2024-11-03 00:19:07,888 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:32]
-2024-11-03 00:21:33,585 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:32]
-2024-11-05 17:47:09,906 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:32]
-2024-11-05 18:28:56,017 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:32]
-2024-11-05 18:43:36,886 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:32]
-2024-11-05 22:11:19,927 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:30]
-2024-11-05 22:12:00,114 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:30]
-2024-11-05 22:12:13,942 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:30]
-2024-11-05 22:12:47,324 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:30]
-2024-11-05 22:13:45,792 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:30]
-2024-11-05 22:20:23,400 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:28]
-2024-11-05 22:26:10,655 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:28]
-2024-11-05 22:37:14,532 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-05 22:37:18,680 ERROR: Exception on /api/auth/register [POST] [in /home/ronny/.local/lib/python3.10/site-packages/flask/app.py:838]
+2024-11-06 01:12:40,690 ERROR: Exception on /api/execute/ [POST] [in /home/ronny/.local/lib/python3.10/site-packages/flask/app.py:838]
 Traceback (most recent call last):
   File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
     self.dialect.do_execute(
   File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 941, in do_execute
     cursor.execute(statement, parameters)
-psycopg2.errors.UndefinedTable: relation "users" does not exist
-LINE 2: FROM users 
-             ^
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "8a4dce79-a0fc-4abe-998e-74d32545087b"
+LINE 1: ...anguage, code, output, error, created_at) VALUES ('8a4dce79-...
+                                                             ^
 
 
 The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
-  File "/home/ronny/.local/lib/python3.10/site-packages/flask/app.py", line 1473, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/ronny/.local/lib/python3.10/site-packages/flask/app.py", line 882, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/ronny/.local/lib/python3.10/site-packages/flask_cors/extension.py", line 194, in wrapped_function
-    return cors_after_request(app.make_response(f(*args, **kwargs)))
   File "/home/ronny/.local/lib/python3.10/site-packages/flask/app.py", line 880, in full_dispatch_request
     rv = self.dispatch_request()
   File "/home/ronny/.local/lib/python3.10/site-packages/flask/app.py", line 865, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-  File "/mnt/d/Compiler As A Service/backend/api/auth.py", line 31, in register
-    if User.query.filter((User.username == data['username']) | (User.email == data['email'])).first():
-  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 2728, in first
-    return self.limit(1)._iter().first()  # type: ignore
-  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
-    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
-  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2362, in execute
-    return self._execute_internal(
-  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2247, in _execute_internal
-    result: Result[Any] = compile_state_cls.orm_execute_statement(
-  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/context.py", line 305, in orm_execute_statement
-    result = conn.execute(
+  File "/home/ronny/.local/lib/python3.10/site-packages/flask_jwt_extended/view_decorators.py", line 170, in decorator
+    return current_app.ensure_sync(fn)(*args, **kwargs)
+  File "/mnt/d/Compiler As A Service/backend/api/execute.py", line 44, in execute
+    db.session.commit()
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/scoping.py", line 597, in commit
+    return self._proxied.commit()
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2028, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1313, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+    self.session.flush()
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4352, in flush
+    self._flush(objects)
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4487, in _flush
+    with util.safe_reraise():
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4448, in _flush
+    flush_context.execute()
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 1048, in _emit_insert_statements
+    result = connection.execute(
   File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
     return meth(
   File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
@@ -70,46 +66,32 @@ Traceback (most recent call last):
     self.dialect.do_execute(
   File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 941, in do_execute
     cursor.execute(statement, parameters)
-sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedTable) relation "users" does not exist
-LINE 2: FROM users 
-             ^
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "8a4dce79-a0fc-4abe-998e-74d32545087b"
+LINE 1: ...anguage, code, output, error, created_at) VALUES ('8a4dce79-...
+                                                             ^
 
-[SQL: SELECT users.id AS users_id, users.username AS users_username, users.email AS users_email, users.password_hash AS users_password_hash, users.created_at AS users_created_at 
-FROM users 
-WHERE users.username = %(username_1)s OR users.email = %(email_1)s 
- LIMIT %(param_1)s]
-[parameters: {'username_1': 'testuser', 'email_1': 'test@example.com', 'param_1': 1}]
-(Background on this error at: https://sqlalche.me/e/20/f405)
-2024-11-05 22:43:28,794 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-05 22:44:08,865 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-05 22:44:15,056 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-05 22:44:40,653 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-05 22:45:27,926 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-05 22:48:46,450 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-05 22:48:53,812 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-05 22:49:02,619 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-05 22:49:15,658 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-05 22:51:40,859 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-05 22:51:49,368 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-05 22:53:45,480 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-05 22:53:55,223 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-05 22:54:36,220 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-05 22:55:05,035 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-05 23:12:44,686 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-05 23:22:25,356 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-05 23:22:49,976 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-05 23:24:31,317 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-05 23:27:09,824 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-05 23:27:48,125 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-05 23:30:55,913 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-05 23:31:57,265 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-05 23:38:22,940 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-05 23:39:57,494 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-05 23:41:39,039 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-05 23:42:51,833 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-05 23:43:07,254 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-05 23:43:43,338 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-06 00:31:37,206 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:30]
-2024-11-06 00:34:53,737 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:30]
-2024-11-06 00:35:09,633 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:30]
-2024-11-06 00:37:17,393 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:30]
+[SQL: INSERT INTO executions (id, user_id, language, code, output, error, created_at) VALUES (%(id)s, %(user_id)s, %(language)s, %(code)s, %(output)s, %(error)s, %(created_at)s)]
+[parameters: {'id': '8a4dce79-a0fc-4abe-998e-74d32545087b', 'user_id': 2, 'language': 'python', 'code': "print('ronit')", 'output': '', 'error': "run() got an unexpected keyword argument 'timeout'", 'created_at': datetime.datetime(2024, 11, 6, 6, 12, 40, 222452)}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ronny/.local/lib/python3.10/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ronny/.local/lib/python3.10/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ronny/.local/lib/python3.10/site-packages/flask_cors/extension.py", line 194, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/ronny/.local/lib/python3.10/site-packages/flask/app.py", line 772, in handle_user_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+  File "/mnt/d/Compiler As A Service/backend/app.py", line 87, in handle_exception
+    return jsonify(error=str(e)), 500
+NameError: name 'jsonify' is not defined
+2024-11-06 01:26:08,194 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 01:26:20,173 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 01:27:10,288 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 01:27:40,419 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 01:38:30,311 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 01:39:44,299 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 01:42:25,714 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]

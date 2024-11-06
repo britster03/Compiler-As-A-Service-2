@@ -6,20 +6,23 @@ function Editor({ language, code, onChange }) {
   const options = {
     selectOnLineNumbers: true,
     automaticLayout: true,
+    minimap: { enabled: false },
+    fontSize: 14,
   };
 
   return (
-    <MonacoEditor
-      width="800"
-      height="600"
-      language={language}
-      theme="vs-dark"
-      value={code}
-      options={options}
-      onChange={onChange}
-    />
+    <div className="my-4">
+      <MonacoEditor
+        width="100%"
+        height="500"
+        language={language}
+        theme="vs-dark"
+        value={code}
+        options={options}
+        onChange={onChange}
+      />
+    </div>
   );
 }
 
 export default Editor;
-

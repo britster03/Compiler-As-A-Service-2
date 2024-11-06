@@ -6,35 +6,24 @@ function Home() {
   const token = localStorage.getItem('access_token');
 
   return (
-    <div style={styles.container}>
-      <h1>Welcome to Compiler as a Service</h1>
+    <div className="container mx-auto text-center mt-10">
+      <h1 className="text-4xl font-bold mb-6">Welcome to Compiler as a Service</h1>
       {token ? (
-        <Link to="/execute" style={styles.button}>Start Coding</Link>
+        <Link to="/execute" className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600">
+          Start Coding
+        </Link>
       ) : (
-        <>
-          <Link to="/login" style={styles.button}>Login</Link>
-          <Link to="/register" style={styles.button}>Register</Link>
-        </>
+        <div>
+          <Link to="/login" className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 mr-4">
+            Login
+          </Link>
+          <Link to="/register" className="bg-green-500 text-white px-6 py-3 rounded-md hover:bg-green-600">
+            Register
+          </Link>
+        </div>
       )}
     </div>
   );
 }
 
-const styles = {
-  container: {
-    textAlign: 'center',
-    marginTop: '50px',
-  },
-  button: {
-    display: 'inline-block',
-    margin: '10px',
-    padding: '10px 20px',
-    backgroundColor: '#61dafb',
-    color: '#282c34',
-    textDecoration: 'none',
-    borderRadius: '5px',
-  }
-};
-
 export default Home;
-

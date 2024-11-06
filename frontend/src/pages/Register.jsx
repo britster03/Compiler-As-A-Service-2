@@ -13,14 +13,10 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('/auth/register', { username, email, password });
+      await api.post('/auth/register', { username, email, password });
       navigate('/login');
     } catch (err) {
-      if (err.response && err.response.data && err.response.data.error) {
-        setError(err.response.data.error);
-      } else {
-        setError('Registration failed.');
-      }
+      setError(err.response?.data?.error || 'Registration failed.');
     }
   };
 

@@ -1,24 +1,17 @@
-2024-11-06 01:12:40,690 ERROR: Exception on /api/execute/ [POST] [in /home/ronny/.local/lib/python3.10/site-packages/flask/app.py:838]
+2024-11-06 01:49:35,986 ERROR: Unexpected error for user ID: 2 [in /mnt/d/Compiler As A Service/backend/api/execute.py:79]
 Traceback (most recent call last):
   File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
     self.dialect.do_execute(
   File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 941, in do_execute
     cursor.execute(statement, parameters)
-psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "8a4dce79-a0fc-4abe-998e-74d32545087b"
-LINE 1: ...anguage, code, output, error, created_at) VALUES ('8a4dce79-...
-                                                             ^
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "executions_pkey"
+DETAIL:  Key (id)=(2) already exists.
 
 
 The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
-  File "/home/ronny/.local/lib/python3.10/site-packages/flask/app.py", line 880, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/ronny/.local/lib/python3.10/site-packages/flask/app.py", line 865, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-  File "/home/ronny/.local/lib/python3.10/site-packages/flask_jwt_extended/view_decorators.py", line 170, in decorator
-    return current_app.ensure_sync(fn)(*args, **kwargs)
-  File "/mnt/d/Compiler As A Service/backend/api/execute.py", line 44, in execute
+  File "/mnt/d/Compiler As A Service/backend/api/execute.py", line 61, in execute_code
     db.session.commit()
   File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/scoping.py", line 597, in commit
     return self._proxied.commit()
@@ -48,7 +41,7 @@ Traceback (most recent call last):
     util.preloaded.orm_persistence.save_obj(
   File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
     _emit_insert_statements(
-  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 1048, in _emit_insert_statements
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 1233, in _emit_insert_statements
     result = connection.execute(
   File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
     return meth(
@@ -66,32 +59,28 @@ Traceback (most recent call last):
     self.dialect.do_execute(
   File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 941, in do_execute
     cursor.execute(statement, parameters)
-sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "8a4dce79-a0fc-4abe-998e-74d32545087b"
-LINE 1: ...anguage, code, output, error, created_at) VALUES ('8a4dce79-...
-                                                             ^
+sqlalchemy.exc.IntegrityError: (psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "executions_pkey"
+DETAIL:  Key (id)=(2) already exists.
 
-[SQL: INSERT INTO executions (id, user_id, language, code, output, error, created_at) VALUES (%(id)s, %(user_id)s, %(language)s, %(code)s, %(output)s, %(error)s, %(created_at)s)]
-[parameters: {'id': '8a4dce79-a0fc-4abe-998e-74d32545087b', 'user_id': 2, 'language': 'python', 'code': "print('ronit')", 'output': '', 'error': "run() got an unexpected keyword argument 'timeout'", 'created_at': datetime.datetime(2024, 11, 6, 6, 12, 40, 222452)}]
-(Background on this error at: https://sqlalche.me/e/20/9h9h)
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/ronny/.local/lib/python3.10/site-packages/flask/app.py", line 1473, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/ronny/.local/lib/python3.10/site-packages/flask/app.py", line 882, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/ronny/.local/lib/python3.10/site-packages/flask_cors/extension.py", line 194, in wrapped_function
-    return cors_after_request(app.make_response(f(*args, **kwargs)))
-  File "/home/ronny/.local/lib/python3.10/site-packages/flask/app.py", line 772, in handle_user_exception
-    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
-  File "/mnt/d/Compiler As A Service/backend/app.py", line 87, in handle_exception
-    return jsonify(error=str(e)), 500
-NameError: name 'jsonify' is not defined
-2024-11-06 01:26:08,194 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-06 01:26:20,173 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-06 01:27:10,288 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-06 01:27:40,419 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-06 01:38:30,311 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-06 01:39:44,299 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
-2024-11-06 01:42:25,714 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+[SQL: INSERT INTO executions (user_id, language, code, output, error, created_at) VALUES (%(user_id)s, %(language)s, %(code)s, %(output)s, %(error)s, %(created_at)s) RETURNING executions.id]
+[parameters: {'user_id': 2, 'language': 'python', 'code': "print('hi')", 'output': 'hi\n', 'error': '', 'created_at': datetime.datetime(2024, 11, 6, 6, 49, 35, 984629)}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-11-06 01:54:08,104 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 03:14:42,170 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 03:16:46,533 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 03:18:57,559 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 03:23:13,880 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 03:25:14,365 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 03:31:26,769 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 03:32:25,878 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 03:53:44,863 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 04:03:33,604 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 04:07:27,749 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 04:08:52,300 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 04:22:22,392 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 04:29:45,819 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 04:34:14,388 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 04:35:12,730 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 04:37:43,135 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 04:38:55,165 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 04:43:32,438 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]

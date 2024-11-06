@@ -12,48 +12,26 @@ function Navbar() {
   };
 
   return (
-    <nav style={styles.nav}>
-      <h2 style={styles.title}>Compiler as a Service</h2>
-      <div>
-        {token ? (
-          <>
-            <Link to="/execute" style={styles.link}>Execute</Link>
-            <Link to="/history" style={styles.link}>History</Link>
-            <button onClick={handleLogout} style={styles.button}>Logout</button>
-          </>
-        ) : (
-          <>
-            <Link to="/login" style={styles.link}>Login</Link>
-            <Link to="/register" style={styles.link}>Register</Link>
-          </>
-        )}
+    <nav className="bg-gray-800 p-4">
+      <div className="container mx-auto flex justify-between items-center">
+        <Link to="/" className="text-white text-xl font-bold">CaaS</Link>
+        <div>
+          {token ? (
+            <>
+              <Link to="/execute" className="text-gray-300 hover:text-white px-3">Execute</Link>
+              <Link to="/history" className="text-gray-300 hover:text-white px-3">History</Link>
+              <button onClick={handleLogout} className="text-gray-300 hover:text-white px-3">Logout</button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="text-gray-300 hover:text-white px-3">Login</Link>
+              <Link to="/register" className="text-gray-300 hover:text-white px-3">Register</Link>
+            </>
+          )}
+        </div>
       </div>
     </nav>
   );
 }
 
-const styles = {
-  nav: {
-    padding: '10px 20px',
-    backgroundColor: '#282c34',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    color: 'white'
-  },
-  title: {
-    margin: 0,
-  },
-  link: {
-    marginRight: '15px',
-    color: 'white',
-    textDecoration: 'none',
-  },
-  button: {
-    padding: '5px 10px',
-    cursor: 'pointer',
-  }
-};
-
 export default Navbar;
-

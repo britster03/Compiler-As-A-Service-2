@@ -1,5 +1,4 @@
 // frontend/src/pages/Execute.jsx
-
 import React, { useState } from 'react';
 import Editor from '../components/Editor';
 import api from '../services/api';
@@ -16,9 +15,8 @@ function Execute() {
       setOutput(response.data.output || '');
       setError(response.data.error || '');
     } catch (err) {
-      const errorMsg = err.response?.data?.error || 'Execution failed.';
-      setError(errorMsg);
       setOutput('');
+      setError(err.response?.data?.error || 'Execution failed.');
     }
   };
 

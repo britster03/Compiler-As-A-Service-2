@@ -11,15 +11,17 @@ import History from './pages/History';
 function App() {
   return (
     <Router>
-      <Navbar />
-      <div style={styles.container}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/execute" element={<ProtectedRoute component={Execute} />} />
-          <Route path="/history" element={<ProtectedRoute component={History} />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
+      <div className="flex flex-col min-h-screen">
+        <Navbar />
+        <div className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/execute" element={<ProtectedRoute component={Execute} />} />
+            <Route path="/history" element={<ProtectedRoute component={History} />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Routes>
+        </div>
       </div>
     </Router>
   );
@@ -30,11 +32,5 @@ function ProtectedRoute({ component: Component }) {
   const token = localStorage.getItem('access_token');
   return token ? <Component /> : <Login />;
 }
-
-const styles = {
-  container: {
-    padding: '20px',
-  }
-};
 
 export default App;
