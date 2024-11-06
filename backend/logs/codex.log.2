@@ -1,0 +1,97 @@
+2024-11-06 01:12:40,690 ERROR: Exception on /api/execute/ [POST] [in /home/ronny/.local/lib/python3.10/site-packages/flask/app.py:838]
+Traceback (most recent call last):
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type integer: "8a4dce79-a0fc-4abe-998e-74d32545087b"
+LINE 1: ...anguage, code, output, error, created_at) VALUES ('8a4dce79-...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ronny/.local/lib/python3.10/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ronny/.local/lib/python3.10/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/ronny/.local/lib/python3.10/site-packages/flask_jwt_extended/view_decorators.py", line 170, in decorator
+    return current_app.ensure_sync(fn)(*args, **kwargs)
+  File "/mnt/d/Compiler As A Service/backend/api/execute.py", line 44, in execute
+    db.session.commit()
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/scoping.py", line 597, in commit
+    return self._proxied.commit()
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2028, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1313, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+    self.session.flush()
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4352, in flush
+    self._flush(objects)
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4487, in _flush
+    with util.safe_reraise():
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4448, in _flush
+    flush_context.execute()
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 1048, in _emit_insert_statements
+    result = connection.execute(
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ronny/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "8a4dce79-a0fc-4abe-998e-74d32545087b"
+LINE 1: ...anguage, code, output, error, created_at) VALUES ('8a4dce79-...
+                                                             ^
+
+[SQL: INSERT INTO executions (id, user_id, language, code, output, error, created_at) VALUES (%(id)s, %(user_id)s, %(language)s, %(code)s, %(output)s, %(error)s, %(created_at)s)]
+[parameters: {'id': '8a4dce79-a0fc-4abe-998e-74d32545087b', 'user_id': 2, 'language': 'python', 'code': "print('ronit')", 'output': '', 'error': "run() got an unexpected keyword argument 'timeout'", 'created_at': datetime.datetime(2024, 11, 6, 6, 12, 40, 222452)}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ronny/.local/lib/python3.10/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ronny/.local/lib/python3.10/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ronny/.local/lib/python3.10/site-packages/flask_cors/extension.py", line 194, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/home/ronny/.local/lib/python3.10/site-packages/flask/app.py", line 772, in handle_user_exception
+    return self.ensure_sync(handler)(e)  # type: ignore[no-any-return]
+  File "/mnt/d/Compiler As A Service/backend/app.py", line 87, in handle_exception
+    return jsonify(error=str(e)), 500
+NameError: name 'jsonify' is not defined
+2024-11-06 01:26:08,194 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 01:26:20,173 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 01:27:10,288 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 01:27:40,419 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 01:38:30,311 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 01:39:44,299 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]
+2024-11-06 01:42:25,714 INFO: Compiler as a Service startup [in /mnt/d/Compiler As A Service/backend/app.py:29]

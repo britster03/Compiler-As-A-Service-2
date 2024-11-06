@@ -1,0 +1,93 @@
+from flask import Blueprint, request, jsonify
+from flask_jwt_extended import jwt_required, get_jwt_identity
+from models.execution import Execution
+from models import db
+from utils.executor import execute_code
+from utils.storage import upload_execution_result
+from marshmallow import Schema, fields, ValidationError
+import uuid
+
+execute_bp = Blueprint('execute', __name__)
+
+class ExecuteSchema(Schema):
+    language = fields.Str(required=True)
+    code = fields.Str(required=True)
+
+execute_schema = ExecuteSchema()
+
+@execute_bp.route('/', methods=['POST'])
+@jwt_required()
+def execute():
+    try:
+        data = execute_schema.load(request.json)
+    except ValidationError as err:
+        return jsonify(err.messages), 400
+    
+    language = data['language']
+    code = data['code']
+    user_id = get_jwt_identity()
+    execution_id = str(uuid.uuid4())
+
+    # Execute code
+    result = execute_code(language, code)
+
+    # Save execution to database
+    execution = Execution(
+        id=execution_id,
+        user_id=user_id,
+        language=language,
+        code=code,
+        output=result.get('output', ''),
+        error=result.get('error', '')
+    )
+    db.session.add(execution)
+    db.session.commit()
+
+    # Upload to storage
+    upload_execution_result(execution_id, {
+        'id': execution_id,
+        'user_id': user_id,
+        'language': language,
+        'code': code,
+        'output': execution.output if execution.output else '',
+        'error': execution.error if execution.error else '',
+        'created_at': execution.created_at.isoformat()
+    })
+
+    if 'error' in result and result['error']:
+        return jsonify({'id': execution_id, 'error': result['error']}), 400
+    else:
+        return jsonify({'id': execution_id, 'output': result['output']}), 200
+
+@execute_bp.route('/history', methods=['GET'])
+@jwt_required()
+def history():
+    user_id = get_jwt_identity()
+    executions = Execution.query.filter_by(user_id=user_id).order_by(Execution.created_at.desc()).all()
+    history = []
+    for exec in executions:
+        history.append({
+            'id': exec.id,
+            'language': exec.language,
+            'code': exec.code,
+            'output': exec.output,
+            'error': exec.error,
+            'created_at': exec.created_at.isoformat()
+        })
+    return jsonify(history), 200
+
+@execute_bp.route('/<execution_id>', methods=['GET'])
+@jwt_required()
+def get_execution(execution_id):
+    user_id = get_jwt_identity()
+    execution = Execution.query.filter_by(id=execution_id, user_id=user_id).first()
+    if not execution:
+        return jsonify({'error': 'Execution not found'}), 404
+    return jsonify({
+        'id': execution.id,
+        'language': execution.language,
+        'code': execution.code,
+        'output': execution.output,
+        'error': execution.error,
+        'created_at': execution.created_at.isoformat()
+    }), 200
